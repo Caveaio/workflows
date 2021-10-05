@@ -10,7 +10,7 @@ on:
         required: true
         type: string
     secrets:
-      google_project:
+      google_gar_repo:
         required: true
       gar_json_key:
         required: true
@@ -39,5 +39,5 @@ jobs:
         with:
           push: true
           tags: |
-            europe-west3-docker.pkg.dev/${{ secrets.google_project }}/github-pipeline/${{ env.REPO }}:${{ env.RELEASE_VERSION }}
-            europe-west3-docker.pkg.dev/${{ secrets.google_project }}/github-pipeline/${{ env.REPO }}:latest
+            ${{ secrets.google_gar_repo }}/${{ env.REPO }}:${{ env.RELEASE_VERSION }}
+            ${{ secrets.google_gar_repo }}/${{ env.REPO }}:latest
