@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-test
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: argocd-test
+  template:
+    metadata:
+      labels:
+        app: argocd-test
+    spec:
+      containers:
+      - image: argocd-test
+        name: argocd-test
+        ports:
+        - containerPort: 8080
