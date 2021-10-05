@@ -11,7 +11,7 @@ on:
         type: string
     secrets:
       gcr_json_key:
-        requred: true
+        required: true
 
 jobs:
   build_publish_docker_image:
