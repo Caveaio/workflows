@@ -3,7 +3,7 @@ name: Update Image tag of Kustomize environemnt
 on:
   workflow_call:
     inputs:
-      environement:
+      environment:
         required: true
         type: string
       imageName:
