@@ -30,4 +30,4 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'Changed Image tag for ${{ inputs.environement }} to ${{ inputs.imageTag }} on ${{ inputs.imageName }}'
+          commit_message: 'Changed Image tag for ${{ inputs.environment }} to ${{ inputs.imageTag }} on ${{ inputs.imageName }}'
