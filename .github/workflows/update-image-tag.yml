@@ -24,7 +24,7 @@ jobs:
       - name: Update Kustomize Image Tag
         uses: efio-dk/kustomize-update-image-tag@v1
         with:
-          environment: ${{ inputs.environement }}
+          environment: ${{ inputs.environment }}
           imageName: ${{ inputs.imageName }}
           newImageTag: ${{ inputs.imageTag }}
 
