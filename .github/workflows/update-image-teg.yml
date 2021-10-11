@@ -1,0 +1,33 @@
+name: Update Image tag of Kustomize environemnt
+
+on:
+  workflow_call:
+    inputs:
+      environement:
+        required: true
+        type: string
+      imageName:
+        required: true
+        type: string
+      imageTag:
+        required: true
+        type: string
+
+jobs:
+  build_publish_docker_image:
+    name: Update Image Tag for dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Update Kustomize Image Tag
+        uses: efio-dk/kustomize-update-image-tag@v1
+        with:
+          environment: ${{ inputs.environement }}
+          imageName: ${{ inputs.imageName }}
+          newImageTag: ${{ inputs.imageTag }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Changed Image tag for ${{ inputs.environement }} to ${{ inputs.imageTag }} on ${{ inputs.imageName }}'
