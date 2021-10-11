@@ -14,7 +14,7 @@ on:
         type: string
 
 jobs:
-  build_publish_docker_image:
+  kustomize_update_image_tag:
     name: Update Image Tag for dev
     runs-on: ubuntu-latest
     steps:
