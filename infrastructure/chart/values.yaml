@@ -1,0 +1,82 @@
+# Default values for chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+namespace:
+image:
+  repository: github.example.com/group/project
+  tag: stable
+  pullPolicy: Always
+  secrets:
+    - name: github-registry
+podAnnotations: {}
+application:
+  track: stable
+  tier: web
+  migrateCommand:
+  initializeCommand:
+  secretName:
+  secretChecksum:
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+github:
+  app:
+  env:
+service:
+  enabled: true
+  annotations: {}
+  name: web
+  type: ClusterIP
+  url: http://my.host.com/
+  additionalHosts:
+  commonName:
+  externalPort: 5000
+  internalPort: 5000
+ingress:
+  enabled: true
+  tls:
+    enabled: true
+    secretName: ""
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/client-body-buffer-size: 15M
+    cert-manager.io/cluster-issuer: cert-manager
+ingressroute:
+  enabled: true
+  namespace: traefik
+externaldns:
+  enabled: true
+  targetip: 1.1.1.1
+livenessProbe:
+  path: "/"
+  initialDelaySeconds: 45
+  timeoutSeconds: 45
+  scheme: "HTTP"
+readinessProbe:
+  path: "/"
+  initialDelaySeconds: 45
+  timeoutSeconds: 45
+  scheme: "HTTP"
+postgresql:
+  enabled: true
+resources:
+  requests:
+    cpu: 300m
+    memory: 384Mi
+
+
+nodeSelector:
+  Environment: dev
+
+
+## Configure PodDisruptionBudget
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+#
+podDisruptionBudget:
+  enabled: false
+  # minAvailable: 1
+  maxUnavailable: 1
