@@ -26,6 +26,8 @@ jobs:
         run: echo "RELEASE_VERSION=${{inputs.commit_sha}}" >> $GITHUB_ENV
       - name: Set Repo lowercase
         run: echo "REPO=$(echo ${{inputs.repo_name}} | tr '[A-Z]' '[a-z]')" >> $GITHUB_ENV
+      - name: Set current date as env variable
+        run: echo "TIMESTAMP=$(date +'%Y%m%dT%H%M%S')" >> $GITHUB_ENV
 
       - name: Login to Google Artifact Registry
         uses: docker/login-action@v1
@@ -34,10 +36,12 @@ jobs:
           username: _json_key
           password: ${{ secrets.gar_json_key }}
 
+
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: |
+            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest

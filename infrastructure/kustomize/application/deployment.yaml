@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-test
+  name: deployment
+  namespace: default
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: argocd-test
+      app: deployment
   template:
     metadata:
       labels:
-        app: argocd-test
+        app: deployment
     spec:
       containers:
-      - image: argocd-test
-        name: argocd-test
+      - image: app-image
+        name: app-image
         ports:
         - containerPort: 8080

@@ -3,4 +3,4 @@ kind: Kustomization
 resources: 
    - service.yaml
    - deployment.yaml
-   - ingress_route.yaml
+   # - ingress_route.yaml
