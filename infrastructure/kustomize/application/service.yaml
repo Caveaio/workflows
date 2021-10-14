@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: argocd-test
+  name: service
   namespace: default
 spec:
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 5000
   selector:
-    app: argocd-test
+    app: service
   type: ClusterIP
