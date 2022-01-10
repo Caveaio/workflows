@@ -2,13 +2,6 @@ name: Build and Push Docker Image
 
 on:
   workflow_call:
-    inputs:
-      repo_name:
-        required: true
-        type: string
-      commit_sha:
-        required: true
-        type: string
     secrets:
       google_gar_repo:
         required: true
@@ -22,10 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set Release Version
-        run: echo "RELEASE_VERSION=${{inputs.commit_sha}}" >> $GITHUB_ENV
-      - name: Set Repo lowercase
-        run: echo "REPO=$(echo ${{inputs.repo_name}} | tr '[A-Z]' '[a-z]')" >> $GITHUB_ENV
+      - name: Set Release Version and Lowercase Repo
+        run: |
+          echo "RELEASE_VERSION=$(echo ${GITHUB_SHA} | head -c 12)" >> $GITHUB_ENV
+          echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
       - name: Set current date as env variable
         run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
 
@@ -36,12 +29,11 @@ jobs:
           username: _json_key
           password: ${{ secrets.gar_json_key }}
 
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: |
-            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
+            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${GITHUB_REF_NAME}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest
