@@ -19,6 +19,7 @@ jobs:
         run: |
           echo "RELEASE_VERSION=$(echo ${GITHUB_SHA} | head -c 12)" >> $GITHUB_ENV
           echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+          echo "REF_NAME=${echo ${GITHUB_REF_NAME,,} | sed 's#/#-#g')" >> $GITHUB_ENV
       - name: Set current date as env variable
         run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
 
@@ -34,6 +35,6 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.GITHUB_REF_NAME }}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
+            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.REF_NAME }}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest
