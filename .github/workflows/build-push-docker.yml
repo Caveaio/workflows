@@ -34,6 +34,6 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{GITHUB_REF_NAME}}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
+            ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.GITHUB_REF_NAME }}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest
