@@ -38,3 +38,5 @@ jobs:
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.REF_NAME }}-${{ env.RELEASE_VERSION }}-${{ env.TIMESTAMP }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:${{ env.RELEASE_VERSION }}
             ${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest
+          cache-from: type=registry,ref=${{ secrets.google_gar_repo }}/${{ github.event.repository.name }}:latest
+          cache-to: type=inline
