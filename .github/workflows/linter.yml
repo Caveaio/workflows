@@ -59,4 +59,4 @@ jobs:
           VALIDATE_JSCPD_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-  
+          LINTER_RULES_PATH: '/tmp/lint'
