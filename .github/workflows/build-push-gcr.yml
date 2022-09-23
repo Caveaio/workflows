@@ -1,6 +1,13 @@
 name: Build & push to gcr
 on:
     workflow_call:
+        inputs:
+            image_name:
+                required: true
+                type: string
+        secrets:
+            GCLOUD_SERVICE_KEY:
+                required: true
 
 jobs:
     build-and-push-to-gcr:
@@ -17,7 +24,7 @@ jobs:
                   gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text
                   registry: eu.gcr.io
                   project_id: cavea-227821
-                  # image_name: queue-service
+                  image_name: ${{ inputs.image_name }}
                   image_tag: ${{ steps.base64-encode.outputs.BRANCH_BASE64 }}
                   dockerfile: Dockerfile
                   context: .
