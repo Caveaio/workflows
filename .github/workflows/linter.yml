@@ -17,8 +17,6 @@ name: Lint Code Base
 on:
   workflow_dispatch:
   push:
-    branches-ignore: [master, main]
-    # Remove the line above to run when pushing to master
   pull_request:
     branches: [master, main]
 
@@ -51,7 +49,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           IGNORE_GITIGNORED_FILES: true
           JAVASCRIPT_DEFAULT_STYLE: prettier
           TYPESCRIPT_DEFAULT_STYLE: prettier
