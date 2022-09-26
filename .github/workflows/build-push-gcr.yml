@@ -25,6 +25,6 @@ jobs:
                   registry: eu.gcr.io
                   project_id: cavea-227821
                   image_name: ${{ inputs.image_name }}
-                  image_tag: ${{ steps.base64-encode.outputs.BRANCH_BASE64 }}-$(git rev-parse --short "$GITHUB_SHA")
+                  image_tag: ${{ steps.base64-encode.outputs.BRANCH_BASE64 }}.$(git rev-parse --short "$GITHUB_SHA")
                   dockerfile: Dockerfile
                   context: .
