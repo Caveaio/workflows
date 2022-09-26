@@ -15,9 +15,11 @@ jobs:
         steps:
             - name: base64 encode the gcr sa
               id: base64-encode
-              run: |
-                echo "::set-output name=BRANCH_BASE64::$(echo -n ${{ github.head_ref || github.ref_name }} | base64 | sed 's/=//g')"
+              run: echo "::set-output name=BRANCH_BASE64::$(echo -n ${{ github.head_ref || github.ref_name }} | base64 | sed 's/=//g')"
               
+            - name: commit sha
+              id: sha
+              run: echo "::set-output name=GIT_SHA::$(git rev-parse --short HEAD)"
 
             - uses: actions/checkout@v2
             - name: 'Build'
@@ -27,6 +29,6 @@ jobs:
                   registry: eu.gcr.io
                   project_id: cavea-227821
                   image_name: ${{ inputs.image_name }}
-                  image_tag: ${{ steps.base64-encode.outputs.BRANCH_BASE64 }}${{ GITHUB_SHA::6 }}
+                  image_tag: ${{ steps.base64-encode.outputs.BRANCH_BASE64 }}${{ steps.sha.outputs.GIT_SHA }}
                   dockerfile: Dockerfile
                   context: .
