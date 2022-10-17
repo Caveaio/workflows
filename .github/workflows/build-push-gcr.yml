@@ -17,10 +17,6 @@ jobs:
               id: base64-encode
               run: echo "::set-output name=BRANCH_BASE64::$(echo -n ${{ github.head_ref || github.ref_name }} | base64 | sed 's/=//g')"
 
-            - name: commit sha
-              id: sha
-              run: echo "::set-output name=GIT_SHA::$(git rev-parse --short HEAD)"
-
             - uses: actions/checkout@v2
             - name: 'Build'
               uses: RafikFarhad/push-to-gcr-github-action@v4.1
@@ -29,6 +25,5 @@ jobs:
                   registry: eu.gcr.io
                   project_id: cavea-227821
                   image_name: ${{ inputs.image_name }}
-                  image_tag: '${{ steps.base64-encode.outputs.BRANCH_BASE64 }},${{ github.sha }},${{ steps.base64-encode.outputs.BRANCH_BASE64 }}-${{ github.sha }}'
-                  dockerfile: Dockerfile
+                  image_tag: '${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
                   context: .
