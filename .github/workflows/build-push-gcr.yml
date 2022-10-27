@@ -23,7 +23,7 @@ jobs:
               with:
                   gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text
                   registry: eu.gcr.io
-                  project_id: cavea-227821
+                  project_id: capturelab
                   image_name: ${{ inputs.image_name }}
                   image_tag: '${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
                   context: .
