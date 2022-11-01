@@ -17,14 +17,14 @@ jobs:
             run: echo "::set-output name=BRANCH_BASE64::$(echo -n ${{ github.head_ref || github.ref_name }} | base64 | sed 's/=//g')"
 
           - id: 'auth'
-            uses: 'google-github-actions/auth@latest'
+            uses: 'google-github-actions/auth@v0.8.3'
             with:
               credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
           - name: 'Deploy to Cloud Run'
-            uses: 'google-github-actions/deploy-cloudrun@latest'
+            uses: 'google-github-actions/deploy-cloudrun@v0.10.3'
             with:
-              region: 'europe-west1'
-              project_id: capturelab
-              image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
               service: 'editor-service'
+              image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
+              project_id: capturelab
+              region: 'us-central2'
