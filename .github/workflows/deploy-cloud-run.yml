@@ -24,7 +24,12 @@ jobs:
             uses: 'google-github-actions/auth@v0.8.3'
             with:
               credentials_json: '${{ secrets.GCP_SA_KEY }}'
-
+          
+          - name: Checkout files
+            uses: Bhacaz/checkout-files@v2
+            with:
+                files: deployment.yaml
+          
           - name: 'Deploy to Cloud Run'
             uses: 'google-github-actions/deploy-cloudrun@v0.10.3'
             with:
@@ -32,4 +37,4 @@ jobs:
               image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
               project_id: capturelab
               region: 'europe-west1'
-              metadata: ${{ inputs.meta_data }}
+              metadata: 'deployment.yaml'
