@@ -32,4 +32,4 @@ jobs:
               image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
               project_id: capturelab
               region: 'europe-west1'
-              metadata: '${{ inputs.meta_data }}'
+              metadata: ${{ inputs.meta_data }}
