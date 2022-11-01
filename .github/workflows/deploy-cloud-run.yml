@@ -24,7 +24,7 @@ jobs:
           - name: 'Deploy to Cloud Run'
             uses: 'google-github-actions/deploy-cloudrun@v0'
             with:
-              region: 'eu-west1'
+              region: 'europe-west1'
               project_id: capturelab
               image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
               service: 'editor-service'
