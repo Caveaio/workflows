@@ -24,7 +24,49 @@ jobs:
           - name: 'Deploy to Cloud Run'
             uses: 'google-github-actions/deploy-cloudrun@v0.10.3'
             with:
-              service: 'editor-service'
-              image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
-              project_id: capturelab
-              region: 'europe-west3'
+              metadata: |-
+                apiVersion: serving.knative.dev/v1
+                kind: Service
+                metadata:
+                  name: editor-service
+                  namespace: '453487003308'
+                  selfLink: /apis/serving.knative.dev/v1/namespaces/453487003308/services/editor-service
+                  uid: d3ba7a84-8269-4a65-bf43-f760ceccda65
+                  resourceVersion: AAXsZdJwtNk
+                  generation: 4
+                  creationTimestamp: '2022-11-01T09:38:50.782021Z'
+                  labels:
+                    cloud.googleapis.com/location: europe-west1
+                  annotations:
+                    run.googleapis.com/client-name: cloud-console
+                    serving.knative.dev/creator: mm@cavea.io
+                    serving.knative.dev/lastModifier: mm@cavea.io
+                    client.knative.dev/user-image: eu.gcr.io/capturelab/editor-service:bWFzdGVy
+                    run.googleapis.com/launch-stage: BETA
+                    run.googleapis.com/ingress: all
+                    run.googleapis.com/ingress-status: all
+                spec:
+                  template:
+                    metadata:
+                      name: editor-service-00004-hix
+                      annotations:
+                        run.googleapis.com/client-name: cloud-console
+                        autoscaling.knative.dev/maxScale: '100'
+                    spec:
+                      containerConcurrency: 80
+                      timeoutSeconds: 300
+                      serviceAccountName: 453487003308-compute@developer.gserviceaccount.com
+                      containers:
+                      - image: eu.gcr.io/capturelab/editor-service:bWFzdGVy
+                        ports:
+                        - name: http1
+                          containerPort: 5000
+                        resources:
+                          limits:
+                            cpu: 8000m
+                            memory: 16Gi
+                  traffic:
+                  - tag: latest
+                    latestRevision: true
+                  - percent: 100
+                    latestRevision: true
