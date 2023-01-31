@@ -58,6 +58,5 @@ jobs:
               region: '${{ inputs.region }}'
               service: '${{ inputs.service }}'
               image: '${{ inputs.image }}'
-              tag: '${{ inputs.tag }}'
               timeout: '${{ inputs.timeout }}'
               flags: '${{ inputs.flags }}'
