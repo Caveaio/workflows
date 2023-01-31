@@ -60,5 +60,4 @@ jobs:
               image: '${{ inputs.image }}'
               tag: '${{ inputs.tag }}'
               timeout: '${{ inputs.timeout }}'
-              //tag_traffic: '${{ inputs.tag_traffic }}'
               flags: '${{ inputs.flags }}'
