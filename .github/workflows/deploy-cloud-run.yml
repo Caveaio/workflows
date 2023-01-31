@@ -1,6 +1,31 @@
 name: Deploy to cloud run
 on:
     workflow_call:
+        inputs:
+            project_id:
+                required: true
+                type: string
+            region:
+                required: true
+                type: string
+            service:
+                required: true
+                type: string
+            image:
+                required: true
+                type: string
+            tag:
+                required: true
+                type: string
+            timeout:
+                required: true
+                type: string
+            tag_traffic:
+                required: true
+                type: string
+            flags:
+                required: true
+                type: string
         secrets:
             GCP_SA_KEY:
                 required: true
@@ -29,8 +54,11 @@ jobs:
           - name: 'Deploy to Cloud Run'
             uses: 'google-github-actions/deploy-cloudrun@v1.0.0'
             with:
-              service: 'editor-service'
-              image: 'eu.gcr.io/capturelab/editor-service:${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
-              project_id: capturelab
-              region: 'europe-west1'
-              metadata: 'deployment.yaml'
+              project_id: '${{ inputs.project_id }}'
+              region: '${{ inputs.region }}'
+              service: '${{ inputs.service }}'
+              image: '${{ inputs.image }}'
+              tag: '${{ inputs.tag }}'
+              timeout: '${{ inputs.timeout }}'
+              tag_traffic: '${{ inputs.tag_traffic }}'
+              flags: '${{ inputs.flags }}'
