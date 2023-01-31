@@ -1,0 +1,30 @@
+name: Build & push to gcr
+on:
+    workflow_call:
+        inputs:
+            image_name:
+                required: true
+                type: string
+        secrets:
+            GCLOUD_SERVICE_KEY:
+                required: true
+
+jobs:
+    build-and-push-to-gcr:
+        runs-on: ubuntu-latest
+        steps:
+          
+            - name: Set outputs
+              id: vars
+              run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+            - uses: actions/checkout@v2
+            - name: 'Build'
+              uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+              with:
+                  gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text
+                  registry: eu.gcr.io
+                  project_id: capturelab
+                  image_name: ${{ inputs.image_name }}
+                  image_tag: '${{ steps.vars.outputs.sha_short }}'
+                  context: .
