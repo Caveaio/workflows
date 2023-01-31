@@ -57,6 +57,7 @@ jobs:
               project_id: '${{ inputs.project_id }}'
               region: '${{ inputs.region }}'
               service: '${{ inputs.service }}'
+              tag: '${{ inputs.tag }}'
               image: '${{ inputs.image }}'
               timeout: '${{ inputs.timeout }}'
               flags: '${{ inputs.flags }}'
