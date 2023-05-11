@@ -5,6 +5,10 @@ on:
             image_name:
                 required: true
                 type: string
+            project_id:
+                required: false
+                type: string
+                default: "capturelab"
         secrets:
             GCLOUD_SERVICE_KEY:
                 required: true
@@ -23,7 +27,7 @@ jobs:
               with:
                   gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text
                   registry: eu.gcr.io
-                  project_id: capturelab
+                  project_id: ${{ inputs.project_id }}
                   image_name: ${{ inputs.image_name }}
                   image_tag: '${{ steps.base64-encode.outputs.BRANCH_BASE64 }}'
                   context: .
